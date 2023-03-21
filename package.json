@@ -1,0 +1,23 @@
+{
+  "name": "sweclassreactiongame",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoganS1/SWEClassReactionGame.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/LoganS1/SWEClassReactionGame/issues"
+  },
+  "homepage": "https://github.com/LoganS1/SWEClassReactionGame#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
+  }
+}
