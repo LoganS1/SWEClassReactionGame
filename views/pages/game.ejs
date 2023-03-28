@@ -55,9 +55,14 @@
       canvas.addEventListener("click", clickHandler, false);
 
       function clickHandler(e) {
+        if (findDist(x_pos, y_pos, e.offsetX, e.offsetY) <= tgt_radius) {
           x_pos = Math.floor(Math.random() * canvas.width);
           y_pos = Math.floor(Math.random() * canvas.height);
           drawTarget();
+        }
+        else {
+          penalty += 1;
+        }
       }
 
       
