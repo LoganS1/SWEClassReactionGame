@@ -5,9 +5,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Page</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      canvas {
+        background: #222;
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
 </head>
 <body>
     <h1>My Game Webpage!</h1>
+    <canvas id="reactCanvas" width ="800" height="800"></canvas>
+
+    <script>
+      const canvas = document.getElementById("reactCanvas");
+      const ctx = canvas.getContext("2d");
+      const tgt_radius = 10
+
+      let x_pos = canvas.width / 2;
+      let y_pos = canvas.height / 2;
+
+      function clearTarget() {
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+      }
+
+      function drawTarget() {
+        clearTarget();
+        ctx.beginPath();
+        ctx.arc(x_pos, y_pos, tgt_radius, 0, Math.PI*2);
+        ctx.fillStyle = "gainsboro";
+        ctx.fill();
+        ctx.closePath();
+      }
+
+      function findDist(x1, y1, x2, y2) {
+        let dx = x1 - x2;
+        let dy = y1 - y2;
+        let r = Math.sqrt(dx * dx + dy * dy);
+        return r;
+      }
+
+      drawTarget();
+
+      canvas.addEventListener("click", clickHandler, false);
+
+      function clickHandler(e) {
+        
+        x_pos = Math.floor(Math.random() * canvas.width);
+        y_pos = Math.floor(Math.random() * canvas.height);
+        drawTarget();
+      }
+
+      
+    </script>
     <a href="/">Home</a>
 </body>
 </html>
