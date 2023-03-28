@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reaction Game Login</title>
+  <link rel="stylesheet" href="signup.css">
+  <script defer src="signup.js"></script>
 </head>
+
 <body>
-    <h1>SignUp Page!</h1>
-    <a href="/">Home</a>
+  <main id="main-holder">
+    <h1 id="signup-header">Sign-Up</h1>
+    
+    <form id="signup-form">
+      <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
+      <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
+      <input type="submit" value="Sign-Up" id="signup-form-submit">
+    </form>
+
+    <a href="/">Login</a>
+  
+  </main>
 </body>
+
 </html>
