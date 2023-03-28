@@ -28,6 +28,7 @@
 
       let x_pos = canvas.width / 2;
       let y_pos = canvas.height / 2;
+      let penalty = 0;
 
       function clearTarget() {
         ctx.clearRect(0,0,canvas.width, canvas.height);
@@ -54,10 +55,9 @@
       canvas.addEventListener("click", clickHandler, false);
 
       function clickHandler(e) {
-        
-        x_pos = Math.floor(Math.random() * canvas.width);
-        y_pos = Math.floor(Math.random() * canvas.height);
-        drawTarget();
+          x_pos = Math.floor(Math.random() * canvas.width);
+          y_pos = Math.floor(Math.random() * canvas.height);
+          drawTarget();
       }
 
       
