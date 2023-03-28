@@ -24,7 +24,7 @@
     <script>
       const canvas = document.getElementById("reactCanvas");
       const ctx = canvas.getContext("2d");
-      const tgt_radius = 10
+      const tgt_radius = 20;
 
       let x_pos = canvas.width / 2;
       let y_pos = canvas.height / 2;
@@ -56,8 +56,8 @@
 
       function clickHandler(e) {
         if (findDist(x_pos, y_pos, e.offsetX, e.offsetY) <= tgt_radius) {
-          x_pos = Math.floor(Math.random() * canvas.width);
-          y_pos = Math.floor(Math.random() * canvas.height);
+          x_pos = Math.floor(Math.random() * (canvas.width - 2 * tgt_radius)) + tgt_radius;
+          y_pos = Math.floor(Math.random() * (canvas.height - 2 * tgt_radius)) + tgt_radius;
           drawTarget();
         }
         else {
