@@ -1,6 +1,7 @@
 const loginForm = document.getElementById("login-form");
 const loginButton = document.getElementById("login-form-submit");
 const loginErrorMsg = document.getElementById("login-error-msg");
+const signupButton = document.getElementById("sign-up-form");
 
 loginButton.addEventListener("click", (e) => {
     e.preventDefault();
@@ -11,6 +12,11 @@ loginButton.addEventListener("click", (e) => {
         location.href="http://localhost:8010/game";
     } else {
         alert("Incorrect username and/or password");
-        //location.reload();
+        location.reload();
     }
+})
+
+signupButton.addEventListener("click",(e) => {
+    e.preventDefault();
+    location.href="http://localhost:8010/signup";
 })
