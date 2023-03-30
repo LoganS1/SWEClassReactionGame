@@ -25,10 +25,15 @@
       const canvas = document.getElementById("reactCanvas");
       const ctx = canvas.getContext("2d");
       const tgt_radius = 20;
+      const num_tgts = 5;
 
       let x_pos = canvas.width / 2;
       let y_pos = canvas.height / 2;
       let penalty = 0;
+      let tgt_count = 0;
+
+      var start_time, end_time;
+
 
       function clearTarget() {
         ctx.clearRect(0,0,canvas.width, canvas.height);
@@ -54,15 +59,35 @@
 
       canvas.addEventListener("click", clickHandler, false);
 
+
       function clickHandler(e) {
         if (findDist(x_pos, y_pos, e.offsetX, e.offsetY) <= tgt_radius) {
           x_pos = Math.floor(Math.random() * (canvas.width - 2 * tgt_radius)) + tgt_radius;
           y_pos = Math.floor(Math.random() * (canvas.height - 2 * tgt_radius)) + tgt_radius;
           drawTarget();
+          if (tgt_count == 0) {
+            start_time = Date.now();
+          }
+          tgt_count += 1;
+          if (tgt_count >= (num_tgts)) {
+            end_time = Date.now();
+            gameOver();
+          }
         }
         else {
           penalty += 1;
         }
+      }
+
+      function gameOver() {
+        score = calcScore();
+        alert("Game over, score is " + score);
+        document.location.reload();
+      }
+
+      function calcScore() {
+        let dt = end_time - start_time;
+        return dt;
       }
 
       
