@@ -18,6 +18,10 @@
     </style>
 </head>
 <body>
+
+  <script src=//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.10/seedrandom.min.js>
+  </script>
+
     <h1>My Game Webpage!</h1>
     <canvas id="reactCanvas" width ="800" height="800"></canvas>
 
@@ -34,6 +38,7 @@
 
       var start_time, end_time;
 
+      Math.seedrandom('hello');
 
       function clearTarget() {
         ctx.clearRect(0,0,canvas.width, canvas.height);
