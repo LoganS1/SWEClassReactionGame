@@ -27,8 +27,8 @@
     <h1>My Game Webpage!</h1>
     <canvas id="reactCanvas" width ="800" height="800"></canvas>
 
-    <input type="text" id="roomBox" value="">
-    <button onclick="setSeed()">Set Seed</button>
+    <input type="text" id="roomBox" value="Room Code">
+    <button onclick="setSeed()">Join Room</button>
 
     <script>
       const canvas = document.getElementById("reactCanvas");
@@ -42,11 +42,37 @@
       let penalty = 0;
       let tgt_count = 0;
 
+      var seed;
+
       var start_time, end_time;
 
       function setSeed() {
-        var seed = document.getElementById("roomBox").value;
+        seed = document.getElementById("roomBox").value;
         Math.seedrandom(seed);
+        startGame()
+      }
+
+      function startGame() {
+
+        // Reset the game tracking related parameters
+        x_pos = canvas.width / 2;
+        y_pos = canvas.height / 2;
+        penalty = 0;
+        tgt_count = 0;
+
+        // Draw the first target
+        drawTarget();
+      }
+
+      function restartGame() {
+
+        // Reseed the RNG if seeded mode is used
+        if (seed != undefined) {
+          Math.seedrandom(seed);
+        }
+
+        // Start the game
+        startGame();
       }
 
       function clearTarget() {
@@ -69,10 +95,7 @@
         return r;
       }
 
-      drawTarget();
-
       canvas.addEventListener("click", clickHandler, false);
-
 
       function clickHandler(e) {
         if (findDist(x_pos, y_pos, e.offsetX, e.offsetY) <= tgt_radius) {
@@ -97,7 +120,7 @@
       function gameOver() {
         score = calcScore();
         alert("Game over, score is " + score);
-        document.location.reload();
+        restartGame();
       }
 
       function calcScore() {
@@ -106,7 +129,7 @@
         return score;
       }
 
-      
+      startGame();
     </script>
     <a href="/">Home</a>
 </body>
