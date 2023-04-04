@@ -19,11 +19,15 @@
 </head>
 <body>
 
+
   <script src=//cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.10/seedrandom.min.js>
   </script>
 
     <h1>My Game Webpage!</h1>
     <canvas id="reactCanvas" width ="800" height="800"></canvas>
+
+    <input type="text" id="roomBox" value="">
+    <button onclick="setSeed()">Set Seed</button>
 
     <script>
       const canvas = document.getElementById("reactCanvas");
@@ -38,7 +42,10 @@
 
       var start_time, end_time;
 
-      Math.seedrandom('hello');
+      function setSeed() {
+        var seed = document.getElementById("roomBox").value;
+        Math.seedrandom(seed);
+      }
 
       function clearTarget() {
         ctx.clearRect(0,0,canvas.width, canvas.height);
