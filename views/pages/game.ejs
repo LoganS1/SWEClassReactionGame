@@ -11,7 +11,7 @@
         margin: 0;
       }
       canvas {
-        background: #222;
+        background: #444;
         display: block;
         margin: 0 auto;
       }
@@ -33,7 +33,8 @@
       const canvas = document.getElementById("reactCanvas");
       const ctx = canvas.getContext("2d");
       const tgt_radius = 20;
-      const num_tgts = 5;
+      const num_tgts = 10;
+      const penalty_score = 1000;
 
       let x_pos = canvas.width / 2;
       let y_pos = canvas.height / 2;
@@ -99,7 +100,8 @@
 
       function calcScore() {
         let dt = end_time - start_time;
-        return dt;
+        score = dt + (penalty * penalty_score);
+        return score;
       }
 
       
