@@ -1,15 +1,48 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser')
+const JSONdb = require('simple-json-db');
+const { v4: uuidv4 } = require('uuid');
+
+
+const db = new JSONdb('./db.json');
+//Example schema
+// {
+//   users: [
+//     {
+//       username: "test",
+//       password: "asdf"
+//     }
+//   ],
+//   sessions: [
+//     {
+//       key: "asdfa",
+//       username: "asdfa"
+//     }
+//   ],
+//   scores: [
+//     {
+//       username: "test",
+//       score: 100
+//     }
+//   ]
+// }
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
 // set up public folder
 app.use(express.static('public'));
-app.use(express.urlencoded());
 
+//How to decode post request
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
+// ROUTES
 // use res.render to load up an ejs view file
-
 // index page
 app.get('/', function(req, res) {
   res.render('pages/index');
@@ -24,6 +57,164 @@ app.get('/signup', function(req, res){
 app.get('/game', function(req, res) {
   res.render('pages/game');
 });
+
+app.post('/doesUserExist', function(req, res){
+  let username = req.body.username;
+  //return json result
+  res.json({exists: checkUsername(username)});
+});
+
+app.post('/createUser', function(req, res){
+  let username = req.body.username;
+  let password = req.body.password;
+  if(!checkUsername(username)){
+    addUser(username, password);
+    let sessionKey = uuidv4();
+    addSession(username, sessionKey);
+    res.json({success: true, sessionKey})
+  }else{
+    res.json({success: false, sessionKey: false})
+  }
+})
+
+app.post('/getHighScores', function(req, res){
+  let scores = db.get("scores");
+  let highScores = [];
+
+  //Sort the scores
+  scores.sort((a, b)=>{
+    return b.score - a.score;
+  })
+
+  //Add highest scores to highScores arr
+  for(let i = 0; i < scores.length || i < 10; i++){
+    highScores.push(scores[i]);
+  }
+
+  //return highScores arr
+  res.json({scores})
+})
+
+
+app.post('/validateLogin', function(req, res){
+  let username = req.body.username;
+  let password = req.body.password;
+  if(validateLogin(username, password)){
+    let sessionKey = uuidv4();
+    addSession(username, sessionKey);
+    res.json({
+      validated: true,
+      sessionKey
+    })
+  }else{
+    res.json({
+      validated: false,
+      sessionKey: false
+    })
+  }
+})
+
+app.post('/saveScore', function(req, res){
+  let sessionKey = req.body.sessionKey;
+  let score = req.body.score;
+  let username = getUsernameFromSessionKey(sessionKey);
+  if(!username){
+    res.json({success: false});
+  }else{
+    saveScore(score, username);
+    res.json({success: true})
+  }
+})
+
+//HELPER METHODS
+
+function addSession(username, sessionKey){
+  let sessions = db.get('sessions');
+  //if no sessions
+  if(!sessions){
+    sessions = [];
+  }
+  sessions.push({
+    username,
+    sessionKey
+  })
+  db.set('sessions', sessions);
+}
+
+function validateLogin(username, password){
+  let users = db.get('users');
+  //check that some users exist
+  let foundValidUser = false
+  if(users){
+    users.forEach((user)=>{
+      if(user.username == username && user.password == password){
+        foundValidUser = true;
+      }
+    });
+  }
+  return foundValidUser;
+}
+
+function addUser(username, password){
+  //get users
+  let users = db.get('users');
+  //if no users
+  if(!users){
+    users = [];
+  }
+  //add user
+  users.push({
+    username,
+    password
+  })
+  //update db
+  db.set('users', users);
+}
+
+function saveScore(score, username){
+  let scores = db.get('scores');
+  //if no scores
+  if(!scores){
+    scores = [];
+  }
+  scores.push({
+    username,
+    score
+  })
+  db.set('scores', scores);
+}
+
+function checkUsername(username){
+  let users = db.get("users");
+  let foundUsername = false;
+  //prevent falsy values - 0, false, null, etc
+  if(!username){
+    foundUsername = true;
+  }
+  //check that users arr is non-empty
+  if(users){
+    users.forEach((user)=>{
+      if(user.username == username){
+        foundUsername = true;
+      }
+    })
+  }
+  return foundUsername;
+}
+
+function getUsernameFromSessionKey(sessionKey){
+  let sessions = db.get('sessions');
+  let username = false;
+  if(sessions){
+    sessions.forEach((session)=>{
+      if(session.sessionKey == sessionKey){
+        username = session.username;
+      }
+    })
+  }
+  return username;
+}
+
 
 let PORT = 8010;
 app.listen(PORT);
