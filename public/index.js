@@ -21,6 +21,10 @@ loginButton.addEventListener("click", async (e) => {
 
     if (data.validated) {
         location.href="http://localhost:8010/game";
+
+        //TODO: send sessionKey
+        document.cookie = "sessionKey=" + data.sessionKey;
+
     } else {
         alert("Incorrect username and/or password");
         location.reload();
