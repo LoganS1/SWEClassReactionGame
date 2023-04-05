@@ -1,0 +1,22 @@
+{
+    "users": [
+        {
+            "username": "Drew",
+            "password": "Drew"
+        },
+        {
+            "username": "Andrew",
+            "password": "andrew"
+        }
+    ],
+    "sessions": [
+        {
+            "username": "Drew",
+            "sessionKey": "6ecef13d-3a9f-4775-85f2-6e3f111af2b8"
+        },
+        {
+            "username": "Andrew",
+            "sessionKey": "287924c6-f008-475f-ac4f-551712bb0efb"
+        }
+    ]
+}
