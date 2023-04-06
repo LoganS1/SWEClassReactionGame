@@ -1,0 +1,30 @@
+{
+    "users": [
+        {
+            "username": "Drew",
+            "password": "Drew"
+        },
+        {
+            "username": "Andrew",
+            "password": "andrew"
+        }
+    ],
+    "sessions": [
+        {
+            "username": "Drew",
+            "sessionKey": "6ecef13d-3a9f-4775-85f2-6e3f111af2b8"
+        },
+        {
+            "username": "Andrew",
+            "sessionKey": "287924c6-f008-475f-ac4f-551712bb0efb"
+        },
+        {
+            "username": "Drew",
+            "sessionKey": "b597a2c8-3abc-4552-98fb-1e27cfc9edad"
+        },
+        {
+            "username": "Drew",
+            "sessionKey": "7497e5fa-f769-4dfd-a4b2-a38b8a3830d8"
+        }
+    ]
+}
