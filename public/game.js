@@ -108,6 +108,14 @@ function clickHandler(e) {
 function gameOver() {
     score = calcScore();
     alert("Game over, score is " + score);
+    let sessionKey = getCookie("sessionKey");
+    let saveScore = fetch('\saveScore', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({sessionKey, score})
+    })
     restartGame();
 }
 
@@ -123,32 +131,29 @@ function calcScore() {
 
 // Get a cookie with a particular name
 function getCookie(cname) {
-    // Format the input name
+    // Format the name of the cookie
     let name = cname + "=";
-    // Decode special characters
-    let decodedCookie = decodeURIComponent(document.cookie);
-    // Split the cookie into an array of individual entries
-    let cookieArray = decodedCookie.split(';');
-    // Go through the cookie array
-    for (let i = 0; i < cookieArray.length; i++) {
-        // Grab an individual cookies
-        let cookie = cookieArray[i];
+    // Create an array of cookie data
+    let ca = document.cookie.split(';');
+    // Go through the array
+    for (let i = 0; i < ca.length; i++) {
+        // Get an individual cookie
+        let c = ca[i];
         // Remove leading spaces
-        while (cookie.charAt(0) == ' ') {
-            cookie = cookie.substring(1);
+        while (c.charAt(0) == ' ') {
+         c = c.substring(1);
         }
-        // Check if the name starts this cookie
-        if (cookie.indexOf(name) == 0) {
-            // Return the data stored in the cookie
-            return cookie.substring(name.length, cookie.length);
+        // Check if the name matches
+        if (c.indexOf(name) == 0) {
+            // Return the cookie data
+            return c.substring(name.length, c.length);
         }
     }
-    // Return an empty string if the cookie is not found
+    // Return an empty string
     return "";
 }
 
 // Add a click listener to the canvas
 canvas.addEventListener("click", clickHandler, false);
-
 // Start the game
 startGame();
