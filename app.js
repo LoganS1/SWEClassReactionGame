@@ -134,10 +134,24 @@ function addSession(username, sessionKey){
   if(!sessions){
     sessions = [];
   }
-  sessions.push({
-    username,
-    sessionKey
-  })
+
+  var newKey = sessionKey;
+  var exists = 0;
+  //if usernames already exist update session key
+  for(var i=0; i<sessions.length; i++){
+    if(sessions[i].username==username){
+      sessions[i].sessionKey = newKey;
+      exists = 1;
+      break;
+    }
+  }
+  //if username doesn't exist create new json entry
+  if(!exists){
+    sessions.push({
+      username,
+      sessionKey
+    })
+  }
   db.set('sessions', sessions);
 }
 

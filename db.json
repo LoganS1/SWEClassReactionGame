@@ -7,24 +7,24 @@
         {
             "username": "Andrew",
             "password": "andrew"
+        },
+        {
+            "username": "User",
+            "password": "User"
         }
     ],
     "sessions": [
         {
             "username": "Drew",
-            "sessionKey": "6ecef13d-3a9f-4775-85f2-6e3f111af2b8"
+            "sessionKey": "d35b4a1f-766c-4e76-bd2a-d5bdf15c4426"
         },
         {
             "username": "Andrew",
-            "sessionKey": "287924c6-f008-475f-ac4f-551712bb0efb"
+            "sessionKey": "53a283bc-a8ca-4d85-89c6-457772fdc185"
         },
         {
-            "username": "Drew",
-            "sessionKey": "b597a2c8-3abc-4552-98fb-1e27cfc9edad"
-        },
-        {
-            "username": "Drew",
-            "sessionKey": "7497e5fa-f769-4dfd-a4b2-a38b8a3830d8"
+            "username": "User",
+            "sessionKey": "8756c05c-d8e0-4ea5-b967-cb9f2e6af520"
         }
     ]
 }
