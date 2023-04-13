@@ -58,6 +58,10 @@ app.get('/game', function(req, res) {
   res.render('pages/game');
 });
 
+app.get('/highScores', function(req, res){
+  res.render('pages/highScores');
+})
+
 app.post('/doesUserExist', function(req, res){
   let username = req.body.username;
   //return json result

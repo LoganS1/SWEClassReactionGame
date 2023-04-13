@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Scores Page</title>
+</head>
+<body>
+
+    <div id="scores">Loading...</div>
+    <label for="roomCode">Room Code</label>
+    <input type="text" name="roomCode" id="roomCode" placeholder="all">
+    <button onClick="getScores();">Get Scores</button>
+    <script>
+        async function getScoresFetch() {
+            let roomCode = document.getElementById("roomCode").value;
+            const response = await fetch('/getHighScores', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({room: roomCode})
+            });
+            return response.json();
+        }
+
+        let getScores = () => {
+            getScoresFetch().then((data)=>{
+                console.log(data.highScores);
+                let scoresDiv = document.getElementById("scores");
+                scoresDiv.innerHTML = "Username - Score - Room <br>";
+                data.highScores.forEach((highScore)=>{
+                    if(highScore.room == -1){
+                        highScore.room = "";
+                    }
+                    scoresDiv.innerHTML += highScore.username + " - " + highScore.score + " - " + highScore.room + "<br>";
+                })
+            })
+        }
+
+        getScores();
+    </script>
+    <a href="/">Home</a>
+</body>
+</html>
