@@ -116,6 +116,7 @@ function gameOver() {
     restartGame();
 }
 
+// Handles sending the game end data to the database
 function saveScore(score) {
     // Get the user's session key
     let sessionKey = getCookie("sessionKey");
@@ -125,7 +126,7 @@ function saveScore(score) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ sessionKey, score })
+        body: JSON.stringify({ sessionKey, score, seed})
     })
 }
 
