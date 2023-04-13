@@ -80,19 +80,34 @@ app.post('/createUser', function(req, res){
 app.post('/getHighScores', function(req, res){
   let scores = db.get("scores");
   let highScores = [];
+  let room = req.body.room;
 
   //Sort the scores
+  if(!scores){
+    scores = [];
+  }
+
+  if(!room){
+    room = -1;
+  }
+
   scores.sort((a, b)=>{
     return b.score - a.score;
   })
 
   //Add highest scores to highScores arr
-  for(let i = 0; i < scores.length || i < 10; i++){
-    highScores.push(scores[i]);
+  for(let i = 0; i < scores.length && i < 10; i++){
+    if(room != -1){
+      if(scores[i].room == room){
+        highScores.push(scores[i]);
+      }
+    }else{
+      highScores.push(scores[i]);
+    }
   }
 
   //return highScores arr
-  res.json({scores})
+  res.json({highScores})
 })
 
 
@@ -117,11 +132,15 @@ app.post('/validateLogin', function(req, res){
 app.post('/saveScore', function(req, res){
   let sessionKey = req.body.sessionKey;
   let score = req.body.score;
+  let room = req.body.room;
+  if(!room){
+    room = -1;
+  }
   let username = getUsernameFromSessionKey(sessionKey);
   if(!username){
     res.json({success: false});
   }else{
-    saveScore(score, username);
+    saveScore(score, username, room);
     res.json({success: true})
   }
 })
@@ -185,7 +204,7 @@ function addUser(username, password){
   db.set('users', users);
 }
 
-function saveScore(score, username){
+function saveScore(score, username, room){
   let scores = db.get('scores');
   //if no scores
   if(!scores){
@@ -193,7 +212,8 @@ function saveScore(score, username){
   }
   scores.push({
     username,
-    score
+    score,
+    room
   })
   db.set('scores', scores);
 }
