@@ -12,8 +12,8 @@ let x_pos = canvas.width / 2;
 let y_pos = canvas.height / 2;
 let penalty = 0;
 let tgt_count = 0;
+let seed = -1; // Default value indicates no seed set
 
-var seed;
 var start_time, end_time;
 
 // Function to set the seed of the RNG, if required
@@ -39,7 +39,7 @@ function startGame() {
 function restartGame() {
 
     // Reseed the RNG if seeded mode is used
-    if (seed != undefined) {
+    if (seed != -1) {
         Math.seedrandom(seed);
     }
 
