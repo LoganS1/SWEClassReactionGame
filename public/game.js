@@ -12,8 +12,8 @@ let x_pos = canvas.width / 2;
 let y_pos = canvas.height / 2;
 let penalty = 0;
 let tgt_count = 0;
+let seed = -1; // Default value indicates no seed set
 
-var seed;
 var start_time, end_time;
 
 // Function to set the seed of the RNG, if required
@@ -39,7 +39,7 @@ function startGame() {
 function restartGame() {
 
     // Reseed the RNG if seeded mode is used
-    if (seed != undefined) {
+    if (seed != -1) {
         Math.seedrandom(seed);
     }
 
@@ -106,17 +106,28 @@ function clickHandler(e) {
 
 // Handle the end of the game
 function gameOver() {
-    score = calcScore();
+    // Get the score
+    let score = calcScore();
+    // Tell the user their score
     alert("Game over, score is " + score);
+    // Save the user's score to the database
+    saveScore(score);
+    // Reset the game state
+    restartGame();
+}
+
+// Handles sending the game end data to the database
+function saveScore(score) {
+    // Get the user's session key
     let sessionKey = getCookie("sessionKey");
-    let saveScore = fetch('\saveScore', {
+    // Call the saveScore function from app.js
+    fetch('\saveScore', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({sessionKey, score})
+        body: JSON.stringify({ sessionKey, score, "room":seed})
     })
-    restartGame();
 }
 
 
@@ -141,7 +152,7 @@ function getCookie(cname) {
         let c = ca[i];
         // Remove leading spaces
         while (c.charAt(0) == ' ') {
-         c = c.substring(1);
+            c = c.substring(1);
         }
         // Check if the name matches
         if (c.indexOf(name) == 0) {
