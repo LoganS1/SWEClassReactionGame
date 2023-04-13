@@ -126,7 +126,7 @@ function saveScore(score) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ sessionKey, score, seed})
+        body: JSON.stringify({ sessionKey, score, "room":seed})
     })
 }
 
