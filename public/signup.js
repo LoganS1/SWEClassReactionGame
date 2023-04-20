@@ -34,6 +34,8 @@ signupButton.addEventListener("click", async (e) => {
         if (createUserResult.success) {
             window.location.href = '/game';
 
+            document.cookie = "sessionKey=" + data.sessionKey;
+
         } else {
             alert('Failed to create user. Please try again.');
         }
