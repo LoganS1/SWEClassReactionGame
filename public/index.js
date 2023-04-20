@@ -20,9 +20,8 @@ loginButton.addEventListener("click", async (e) => {
     let data = await response.json();
 
     if (data.validated) {
-        location.href="http://localhost:8010/game";
+        location.href="/game";
 
-        //TODO: send sessionKey
         document.cookie = "sessionKey=" + data.sessionKey;
 
     } else {
@@ -33,5 +32,5 @@ loginButton.addEventListener("click", async (e) => {
 
 signupButton.addEventListener("click",(e) => {
     e.preventDefault();
-    location.href="http://localhost:8010/signup";
+    location.href="/signup";
 })
