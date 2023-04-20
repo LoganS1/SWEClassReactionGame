@@ -76,7 +76,7 @@ app.post('/createUser', function(req, res){
     addUser(username, password);
     let sessionKey = uuidv4();
     addSession(username, sessionKey);
-    res.json({success: true, sessionKey: sessionKey})
+    res.json({success: true, sessionKey})
   }else{
     res.json({success: false, sessionKey: false})
   }
