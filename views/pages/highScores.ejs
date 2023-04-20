@@ -30,6 +30,7 @@
                 console.log(data.highScores);
                 let scoresDiv = document.getElementById("scores");
                 scoresDiv.innerHTML = "Username - Score - Room <br>";
+                data.highScores = data.highScores.reverse();
                 data.highScores.forEach((highScore)=>{
                     if(highScore.room == -1){
                         highScore.room = "";
