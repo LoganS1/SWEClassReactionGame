@@ -23,7 +23,8 @@ const db = new JSONdb('./db.json');
 //   scores: [
 //     {
 //       username: "test",
-//       score: 100
+//       score: 100,
+//       room: aaa
 //     }
 //   ]
 // }
