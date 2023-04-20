@@ -8,6 +8,10 @@ loginButton.addEventListener("click", async (e) => {
     const username = loginForm.username.value;
     const password = loginForm.password.value;
 
+    login(username, password);
+})
+
+let login = async (username, password) => {
     let response = await fetch('/validateLogin', {
         method: 'POST',
         headers: {
@@ -24,13 +28,18 @@ loginButton.addEventListener("click", async (e) => {
 
         document.cookie = "sessionKey=" + data.sessionKey;
 
+        return true;
+
     } else {
         alert("Incorrect username and/or password");
         location.reload();
+        return false;
     }
-})
+}
 
 signupButton.addEventListener("click",(e) => {
     e.preventDefault();
     location.href="/signup";
 })
+
+modules.exports = login;
