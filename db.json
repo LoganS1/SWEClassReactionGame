@@ -1,0 +1,21 @@
+{
+    "users": [
+        {
+            "username": "testUser",
+            "password": "testPassword"
+        }
+    ],
+    "sessions": [
+        {
+            "username": "testUser",
+            "sessionKey": "f2d4bc8e-b2ab-4b48-ba36-b5e7132d2f99"
+        }
+    ],
+    "scores": [
+        {
+            "username": "testUser",
+            "score": 9034,
+            "room": -1
+        }
+    ]
+}
