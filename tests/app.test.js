@@ -63,3 +63,8 @@ test('addSession', ()=>{
   let foundUser = app.getUsernameFromSessionKey(testNewSessionKey);
   expect(foundUser).toBe(testUser2);
 })
+
+test('closeTests', ()=>{
+  app.close();
+  expect(true).toBe(true);
+})

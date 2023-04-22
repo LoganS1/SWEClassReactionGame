@@ -254,9 +254,13 @@ function getUsernameFromSessionKey(sessionKey){
   return username;
 }
 
+function close(){
+  server.close();
+}
+
 
 let PORT = 8010;
-app.listen(PORT);
+let server = app.listen(PORT);
 console.log('Server is listening on port ', PORT);
 
 module.exports = {
@@ -265,5 +269,6 @@ module.exports = {
   saveScore,
   addUser,
   validateLogin,
-  addSession
+  addSession,
+  close
 }
